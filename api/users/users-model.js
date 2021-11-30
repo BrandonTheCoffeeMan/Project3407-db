@@ -13,7 +13,7 @@ function findByUsername(username) {
 }
 
 function getAll() {
-    return db('users').select('user_id', 'username')
+    return db('users').select('user_id', 'username', 'tag')
 }
 
 module.exports = {

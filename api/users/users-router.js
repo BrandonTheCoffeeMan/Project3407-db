@@ -19,7 +19,8 @@ return jwt.sign(payload, process.env.JWT_SECRET || 'foo', options)
 
 router.post('/register', (req, res) => {
     const user = req.body
-    const hash = bcrypt.hashSync(user.password, 12)
+    const rounds = process.env.HASH_ROUNDS || 12
+    const hash = bcrypt.hashSync(user.password, rounds)
     user.password = hash
     User.add(user)
         .then(id => {
@@ -44,8 +45,9 @@ router.post('/login', (req, res) => {
             if ( user && bcrypt.compareSync(password, user.password)) {
                 const token = generateToken(user)
                 res.status(200).json({
-                    id: user.id,
-                    message: `Welcome back to Project3407 ${user.username}!`,
+                    id: user.user_id,
+                    username: user.username,
+                    handle: user.tag,
                     token
                 })
             } else {
@@ -56,7 +58,7 @@ router.post('/login', (req, res) => {
         })
         .catch(error => {
             res.status(500).json({
-                message: error.message + 'Nice job!'
+                message: error.message
             })
         })
 })
