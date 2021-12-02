@@ -27,7 +27,7 @@ router.post('/register', (req, res) => {
             const token = generateToken(id)
             res.status(200).json({
                 id: id[0],
-                message: `A user has registered to Project3407 with an id of ${id}`,
+                message: `Welcome to Project3407, your incremented id is ${id}. We will use this to populate your data across the platform. Be sure to read our privacy policy to avoid disruptions. Thanks for joining Project3407.`,
                 token
             })
         })
@@ -39,13 +39,14 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/login', (req, res) => {
-    const { username, password } = req.body
-    User.findByUsername(username)
+    const { email, password } = req.body
+    User.findByEmail(email)
         .then(user => {
             if ( user && bcrypt.compareSync(password, user.password)) {
                 const token = generateToken(user)
                 res.status(200).json({
                     id: user.user_id,
+                    email: user.email,
                     username: user.username,
                     handle: user.tag,
                     token

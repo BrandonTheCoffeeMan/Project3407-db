@@ -12,6 +12,10 @@ function findByUsername(username) {
     return db('users').where({username}).first()
 }
 
+function findByEmail(email) {
+    return db('users').where({email}).first()
+}
+
 function getAll() {
     return db('users').select('user_id', 'username', 'tag')
 }
@@ -20,5 +24,6 @@ module.exports = {
     add,
     findById,
     findByUsername,
-    getAll
+    getAll,
+    findByEmail
 }

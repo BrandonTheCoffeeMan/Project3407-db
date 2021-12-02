@@ -8,11 +8,13 @@ exports.seed = function(knex) {
       return knex('users').insert([
         {
           username: 'New User 1',
+          email: 'NewUser1@gmail.com',
           tag: 'OfficialDeeno',
           password: '123',
         },
         {
           username: 'New User 2',
+          email: 'Newuser2@gmail.com',
           tag: 'OfficialBdubs',
           password: '456'
         }

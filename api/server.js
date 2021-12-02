@@ -12,7 +12,9 @@ const authRouter = require('./users/users-router')
 
 // Middleware
 server.use(helmet());
-server.use(cors());
+server.use(cors({
+    origin: '*'
+}));
 server.use(express.json()) // Formats database data into a readable JSON format for the frontend
 
 // Initial Server Response
